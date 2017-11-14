@@ -46,6 +46,8 @@ public class Mechanics {
 			board[pivot++] += 1;
 		}
 		int check = pivot % 7;
+		if(pivot == 14)
+			pivot = 0;
 		if ((check == side && last == 6) && (check == side && last == 13))
 			return true;
 		else if ((board[pivot] == 1) && ((pivot % 7) == side)) {
@@ -124,7 +126,7 @@ public class Mechanics {
 		}
 		for(int x = 13; x > 6; x--){
 			second_row += board[x] + " ";
-			if(x ==13){
+			if(x==13){
 				second_row += " ";
 			}
 		}
@@ -135,7 +137,7 @@ public class Mechanics {
 	public static void main(String[] args) {
 		Mechanics board = new Mechanics(4);
 		System.out.println(board.toString());
-		System.out.println(board.move(5));
+		System.out.println(board.move(9));
 		System.out.println("Results: ");
 		System.out.println(board.toString());
 	}
