@@ -34,7 +34,7 @@ public class Mechanics {
 		int pivot = location;
 		pivot++;
 		int last = 0;
-		int check = pivot %7;
+		int check = pivot/7;
 		while (hand > 0) {
 			if (((pivot / 7) != side && pivot == 6) || ((pivot / 7) != side && pivot == 13)) {
 				pivot++;
