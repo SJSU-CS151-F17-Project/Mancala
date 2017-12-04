@@ -1,3 +1,5 @@
+import java.util.*;
+import javax.swing.event.*;
 /**
  * 
  * @author CriticalException
@@ -6,9 +8,12 @@
 
 public class Mechanics {
 	private static final int TOTAL = 14;
-	private int[] board;
-	// private int[][] board;
-	private int undo;
+	private static final int MAX_UNDOS = 3;
+	private int[][] board;
+	private int[] mancala;
+	private boolean undo;
+	private ArrayList<ChangeListener> listeners;
+	private boolean isGameOver;
 
 	public Mechanics(int marbles) {
 
@@ -112,6 +117,17 @@ public class Mechanics {
 			break;
 		}
 	}
+	
+	public void addChangeListener(ChangeListener l){
+		listeners.add(l);
+		somethingChanged();
+	}
+	
+	public void somethingChanged(){
+		for(ChangeListener l: listeners){
+			l.stateChanged(new ChangeEvent(this));
+		}
+	}
 
 	public String toString() {
 		String first_row = "   ";
@@ -135,7 +151,7 @@ public class Mechanics {
 	public static void main(String[] args) {
 		Mechanics board = new Mechanics(4);
 		System.out.println(board.toString());
-		System.out.println(board.move(5));
+		System.out.println(board.move(2));
 		System.out.println("Results: ");
 		System.out.println(board.toString());
 	}
