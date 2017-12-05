@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * 
  * @author CriticalException
@@ -7,10 +9,12 @@
 public class Mechanics {
 	private static final int TOTAL = 14;
 	private int[] board;
+	private ArrayList<int[]> old_state;
 	private int undo;
 
 	public Mechanics(int marbles) {
-
+		undo = 3;
+		old_state = new ArrayList<int[]>(3);
 		board = new int[TOTAL];
 		for (int x = 0; x < TOTAL; x++) {
 			if (x == 6 || x == 13) {
@@ -22,12 +26,29 @@ public class Mechanics {
 	}
 
 	/**
+	 * This will check if one of the sides is empty, if so the it will return true
+	 * @return
+	 */
+	public boolean gameOver() {
+		int total = 0;
+		int otherTotal = 0;
+		for(int x = 0; x < 6; x++) {
+			total +=board[x];
+		}
+		for(int y = 7; y <13;y++) {
+			otherTotal += board[y];
+		}
+		return total == 0;
+	}
+	
+	/**
 	 * Player will choose a slot from above and will move
 	 * board[6] and board[13] are the MANCALAS
 	 * @return This will return true if the player can go again and false if not
 	 * 
 	 */
 	public boolean move(int location) {
+		old_state.add(board);
 		int hand = board[location];
 		int side = location / 7;
 		board[location] = 0;
@@ -60,7 +81,9 @@ public class Mechanics {
 	 * maximum of 3 undos
 	 */
 	public void undo() {
-		undo++;
+		undo--;
+		board = old_state.get(undo);
+		
 	}
 
 	/**
