@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+import javax.swing.JButton;
 
 /**
  * This is the GameModel
@@ -5,5 +8,8 @@
  *
  */
 public class GameModel {
-
+	private ArrayList<JButton> pits; 
+	public GameModel(View v) {
+		pits = v.getPits();
+	}
 }

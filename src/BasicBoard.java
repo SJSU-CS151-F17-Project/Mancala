@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 /**
  * This will have the basic board
@@ -17,6 +16,7 @@ public class BasicBoard implements Board {
 
 	private static ImageIcon basicBoard;
 	private ImageIcon pit;
+	private ImageIcon mancala;
 	private ArrayList<JButton> pits;
 
 	/**
@@ -25,6 +25,11 @@ public class BasicBoard implements Board {
 	public BasicBoard() {
 		basicBoard = new ImageIcon("data/BasicBoard.jpg");
 		pit = new ImageIcon("data/BasicPit.jpg");
+		mancala = new ImageIcon("data/BasicMancala.jpg");
+		pits = new ArrayList<JButton>(12);
+		for(JButton current: pits) {
+			current = new JButton(pit);
+		}
 	}
 
 	/**
@@ -40,8 +45,10 @@ public class BasicBoard implements Board {
 	 */
 	@Override
 	public void draw(Graphics2D g) {
+		
 		AffineTransform tx = new AffineTransform();
 		AffineTransform x = new AffineTransform();
+		AffineTransform o = new AffineTransform();
 		g.drawImage(basicBoard.getImage(), null, null);
 		tx.translate(0, 50);
 		for (int i = 0; i < 6; i++) {
@@ -54,6 +61,9 @@ public class BasicBoard implements Board {
 			x.translate(150, 0);
 			g.drawImage(pit.getImage(), x, null);
 		}
+		g.drawImage(mancala.getImage(),o,null);
+		o.translate(1070,0);
+		g.drawImage(mancala.getImage(),o,null);
 	}
 
 	/**

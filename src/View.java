@@ -52,7 +52,10 @@ public class View implements ChangeListener {
 		return pits;
 	}
 	
-
+/**
+ * Driver class
+ * @param args
+ */
 	public static void main(String[] args) {
 		View see = new View();
 	}
