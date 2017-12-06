@@ -7,7 +7,8 @@
 public class MancalaTester {
 	public static void main(String[] args) {
 		View mancala = new View();
-		Controller manager = new Controller();
 		GameModel data = new GameModel(mancala);
+		Controller manager = new Controller(data);
+		manager.attach(mancala);
 	}
 }

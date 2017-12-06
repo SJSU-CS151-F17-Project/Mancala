@@ -30,6 +30,7 @@ public class Mechanics {
 	 * @return
 	 */
 	public boolean gameOver() {
+		boolean isEmpty = false;
 		int total = 0;
 		int otherTotal = 0;
 		for(int x = 0; x < 6; x++) {
@@ -38,7 +39,10 @@ public class Mechanics {
 		for(int y = 7; y <13;y++) {
 			otherTotal += board[y];
 		}
-		return total == 0;
+		if(total == 0 || otherTotal == 0) {
+			return isEmpty = true;
+		}
+		return isEmpty;
 	}
 	
 	/**
@@ -83,7 +87,7 @@ public class Mechanics {
 	public void undo() {
 		undo--;
 		board = old_state.get(undo);
-		
+		old_state.remove(undo);
 	}
 
 	/**
