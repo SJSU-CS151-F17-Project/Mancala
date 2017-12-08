@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -55,6 +56,12 @@ public class View implements ChangeListener{
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
 		label.repaint();
+		if (rules.gameOver() == true) {
+			JFrame pop = new JFrame();
+			JOptionPane gameDone = new JOptionPane();
+			gameDone.showMessageDialog(pop, "Game over!");
+		}
+
 	}
 	
 	/**
