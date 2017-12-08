@@ -1,12 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,57 +15,36 @@ import javax.swing.event.ChangeListener;
  * @author Vivian Hoang
  *
  */
-public class View implements ChangeListener {
-	private Mechanics model;
-	private Pit[] pits;
+public class View implements ChangeListener{
 	private JButton undo;
-	private Board style;
+	private JFrame frame;
+	private JLabel label;
+	private JButton changeStyle;
+	private Mechanics rules;
 	
-	public View(Mechanics m, Board style) {
-		BasicBoard defaults = new BasicBoard();
-		this.model = m;
-		this.style = defaults;
-		BoardIcon board = new BoardIcon(style,1200,500); //This is the board implements the Strategy
-		JFrame frame = new JFrame("Mancala");
+	public View() {
+		rules = new Mechanics(4);
+		BoardIcon board = new BoardIcon(new BasicBoard(rules),1200,500); //This is the board implements the Strategy		
+		
+		frame = new JFrame("Mancala");
 		Dimension window = new Dimension(1200,500);
 		frame.setSize(window);
-		JLabel label = new JLabel(board);
+		label = new JLabel(board);
 		undo = new JButton("Undo");
-		undo.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				model.undo();
-			}
-		});
-		final JPanel hGrid = new JPanel(new GridLayout(0,8));
-		for(int i = 1; i < 7; i++){
-			JPanel vGrid = new JPanel(new GridLayout(2,0));
-			final Pit topside = new Pit(0,12-i);
-			final Pit botside = new Pit(0,i);
-			final int index = i;
-			vGrid.add(topside);
-			vGrid.add(botside);
-			topside.addMouseListener(new MouseAdapter(){
-				public void mouseClicked(MouseEvent e){
-					super.mouseClicked(e);
-					model.move(index);
-				}
-			});
-			botside.addMouseListener(new MouseAdapter(){
-				public void mouseClicked(MouseEvent e){
-					super.mouseClicked(e);
-					model.move(index);
-				}
-			});
-			hGrid.add(vGrid);
-		}
+		changeStyle = new JButton("Change Style");
 		
 		JPanel buttonPlace = new JPanel();
+		
+		buttonPlace.setLayout(new GridLayout(0,2));
 		buttonPlace.add(undo);
+		buttonPlace.add(changeStyle);
+		
+		
 		frame.add(buttonPlace,BorderLayout.SOUTH);
-		frame.add(hGrid,  BorderLayout.CENTER);
 		frame.add(label);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
+		frame.setResizable(false);
 		frame.setVisible(true);
 	}
 	
@@ -80,12 +54,7 @@ public class View implements ChangeListener {
 	 */
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
-		// TODO Auto-generated method stub
-		int[] board = model.getBoardData();
-		for(int i = 0; i < board.length; i++){
-			
-		}
-			
+		label.repaint();
 	}
 	
 	/**
@@ -96,13 +65,37 @@ public class View implements ChangeListener {
 		return undo;
 	}
 	
-/**
- * Driver class
- * @param args
- */
-	public static void main(String[] args) {
-		Mechanics m = new Mechanics(3);
-		Board b = new BasicBoard();
-		View see = new View(m, b);
+	/**
+	 * Passes the frame to the Controller
+	 * @return
+	 */
+	public JFrame getMainWindow() {
+		return frame;
 	}
+	
+	
+	/**
+	 * This returns the entire label containing painted board including the marbles
+	 * @return
+	 */
+	public JLabel getBoard() {
+		return label;
+	}
+	
+	/**
+	 * This will change the style of the board
+	 * @return
+	 */
+	public JButton getChangeStyle() {
+		return changeStyle;
+	}
+	
+	/**
+	 * Gets access to the data
+	 * @return
+	 */
+	public Mechanics getMechanics() {
+		return rules;
+	}
+	
 }

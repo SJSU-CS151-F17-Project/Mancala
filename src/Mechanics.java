@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * 
@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class Mechanics {
 	private static final int TOTAL = 14;
 	private int[] board;
-	private ArrayList<int[]> old_state;
+	private LinkedList<int[]> old_state;
 	private int undo;
 
 	public Mechanics(int marbles) {
 		undo = 3;
-		old_state = new ArrayList<int[]>(3);
+		old_state = new LinkedList<int[]>();
 		board = new int[TOTAL];
 		for (int x = 0; x < TOTAL; x++) {
 			if (x == 6 || x == 13) {
@@ -24,13 +24,17 @@ public class Mechanics {
 			}
 		}
 	}
+	
+	public Mechanics(int[] board) {
+		this.board = board;
+	}
+	
 
 	/**
 	 * This will check if one of the sides is empty, if so the it will return true
 	 * @return
 	 */
 	public boolean gameOver() {
-		boolean isEmpty = false;
 		int total = 0;
 		int otherTotal = 0;
 		for(int x = 0; x < 6; x++) {
@@ -40,9 +44,9 @@ public class Mechanics {
 			otherTotal += board[y];
 		}
 		if(total == 0 || otherTotal == 0) {
-			return isEmpty = true;
+			return true;
 		}
-		return isEmpty;
+		return false;
 	}
 	
 	/**
@@ -52,7 +56,7 @@ public class Mechanics {
 	 * 
 	 */
 	public boolean move(int location) {
-		old_state.add(board);
+		old_state.push(board);
 		int hand = board[location];
 		int side = location / 7;
 		board[location] = 0;
@@ -71,23 +75,24 @@ public class Mechanics {
 			check = pivot/7;
 			board[pivot++] += 1;
 		}
+		System.out.println(this.toString());
 		if ((check == side && last == 6) || (check == side && last == 13))
 			return true;
-		else if ((board[pivot] == 1) && ((pivot / 7) == side)) {
+		else if ((board[pivot-1] == 1) && ((pivot / 7) == side)) {
 			steal(last, side);
+			System.out.println("Steal: ");
+			System.out.println(this.toString());
 			return false;
 		}
 		return false;
 	}
 
 	/**
-	 * This undos the previous move and the current player will only have a
-	 * maximum of 3 undos
+	 * This undos the previous move 
 	 */
 	public void undo() {
 		undo--;
-		board = old_state.get(undo);
-		old_state.remove(undo);
+		board = old_state.pop();
 	}
 
 	/**
@@ -161,19 +166,13 @@ public class Mechanics {
 		String together = second_row + "\n" + first_row ;
 		return together;
 	}
-
+	
 	/**
-	 * Testing the move function
-	 * @param args
+	 * This returns the array of marbles 
+	 * @return
 	 */
-	public static void main(String[] args) {
-		Mechanics board = new Mechanics(1);
-		System.out.println(board.toString());
-		System.out.println(board.move(12));
-		System.out.println("Results: ");
-		System.out.println(board.toString());
-		System.out.println(board.move(11));
-		System.out.println("Results: ");
-		System.out.println(board.toString());
+	public int[] getBoardState() {
+		return board;
 	}
+
 }
