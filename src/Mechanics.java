@@ -25,11 +25,6 @@ public class Mechanics {
 		}
 	}
 	
-	public Mechanics(int[] board) {
-		this.board = board;
-	}
-	
-
 	/**
 	 * This will check if one of the sides is empty, if so the it will return true
 	 * @return
@@ -78,8 +73,9 @@ public class Mechanics {
 		System.out.println(this.toString());
 		if ((check == side && last == 6) || (check == side && last == 13))
 			return true;
-		else if ((board[pivot-1] == 1) && ((pivot / 7) == side)) {
-			steal(last, side);
+		else if ((board[last] == 1) && ((pivot / 7) == side)) {
+			if(board[last] != board[last] + board[13-last-1])
+				steal(last, side);
 			System.out.println("Steal: ");
 			System.out.println(this.toString());
 			return false;
@@ -105,44 +101,9 @@ public class Mechanics {
 		if (side == 1) {
 			mancala = 13;
 		}
-		switch (spot) {
-		case 0:
-		case 12:
-			board[mancala] += board[0] + board[12];
-			board[0] = 0;
-			board[12] = 0;
-			break;
-		case 1:
-		case 11:
-			board[mancala] += board[1] + board[11];
-			board[1] = 0;
-			board[11] = 0;
-			break;
-		case 2:
-		case 10:
-			board[mancala] += board[2] + board[10];
-			board[2] = 0;
-			board[10] = 0;
-			break;
-		case 3:
-		case 9:
-			board[mancala] += board[3] + board[9];
-			board[3] = 0;
-			board[9] = 0;
-			break;
-		case 4:
-		case 8:
-			board[mancala] += board[4] + board[8];
-			board[4] = 0;
-			board[8] = 0;
-			break;
-		case 5:
-		case 7:
-			board[mancala] += board[5] + board[7];
-			board[5] = 0;
-			board[7] = 0;
-			break;
-		}
+		board[mancala] += board[spot] + board[13-spot-1];
+		board[spot] = 0;
+		board[13-spot-1] = 0;
 	}
 
 	/**
