@@ -8,22 +8,42 @@ import java.util.LinkedList;
 
 public class Mechanics {
 	private static final int TOTAL = 14;
-	private int[] board;
-	private LinkedList<int[]> old_state;
-	private int undo;
-	private boolean isPlayerOneTurn;
-
-	public Mechanics(int marbles) {
-		undo = 3;
-		old_state = new LinkedList<int[]>();
-		board = new int[TOTAL];
-		for (int x = 0; x < TOTAL; x++) {
-			if (x == 6 || x == 13) {
-				board[x] = 0;
-			} else {
-				board[x] = marbles;
+	private static final int MAX_UNDO = 3;
+	
+	class State{
+		private int[] board;
+		private boolean isPlayerOneTurn;
+		
+		public State(int marbles)
+		{
+			board = new int[TOTAL];
+			for (int x = 0; x < TOTAL; x++) {
+				if (x == 6 || x == 13) {
+					board[x] = 0;
+				} else {
+					board[x] = marbles;
+				}
 			}
 		}
+		
+		public State(State other)
+		{
+			//copy the board
+			this.board = new int[TOTAL];
+			System.arraycopy( other.board, 0, this.board, 0, other.board.length );
+			
+			this.isPlayerOneTurn = other.isPlayerOneTurn;
+		}
+	}
+	
+	private State curState;
+	private LinkedList<State> oldStates;
+	private int curUndos;
+	
+	public Mechanics(int marbles) {
+		curUndos = 0;
+		oldStates = new LinkedList<State>();
+		curState = new State(marbles);
 	}
 	
 	/**
@@ -34,10 +54,10 @@ public class Mechanics {
 		int total = 0;
 		int otherTotal = 0;
 		for(int x = 0; x < 6; x++) {
-			total += board[x];
+			total += curState.board[x];
 		}
 		for(int y = 7; y <13;y++) {
-			otherTotal += board[y];
+			otherTotal += curState.board[y];
 		}
 		if(total == 0 || otherTotal == 0) {
 			return true;
@@ -52,10 +72,14 @@ public class Mechanics {
 	 * 
 	 */
 	public boolean move(int location) {
-		old_state.push(board);
-		int hand = board[location];
+		//save to undo buffer
+		//if(oldStates.getLast() != null && oldStates.getLast().isPlayerOneTurn != curState.isPlayerOneTurn)
+		//oldStates.push(new State(curState));
+		
+		
+		int hand = curState.board[location];
 		int side = location / 7;
-		board[location] = 0;
+		curState.board[location] = 0;
 		int pivot = location;
 		pivot++;
 		int last = 0;
@@ -69,13 +93,13 @@ public class Mechanics {
 			hand--;
 			last = pivot;
 			check = pivot/7;
-			board[pivot++] += 1;
+			curState.board[pivot++] += 1;
 		}
 /*		System.out.println(this.toString());*/
 		if ((check == side && last == 6) || (check == side && last == 13))
 			return true;
-		else if ((board[last] == 1) && ((pivot / 7) == side)) {
-			if(board[last] != board[last] + board[13-last-1])
+		else if ((curState.board[last] == 1) && ((pivot / 7) == side)) {
+			if(curState.board[last] != curState.board[last] + curState.board[13-last-1])
 				steal(last, side);
 /*			System.out.println("Steal: ");
 			System.out.println(this.toString());*/
@@ -88,8 +112,7 @@ public class Mechanics {
 	 * This undos the previous move 
 	 */
 	public void undo() {
-		undo--;
-		board = old_state.pop();
+		//curState.board = old_state.pop();
 	}
 
 	/**
@@ -102,9 +125,9 @@ public class Mechanics {
 		if (side == 1) {
 			mancala = 13;
 		}
-		board[mancala] += board[spot] + board[13-spot-1];
-		board[spot] = 0;
-		board[13-spot-1] = 0;
+		curState.board[mancala] += curState.board[spot] + curState.board[13-spot-1];
+		curState.board[spot] = 0;
+		curState.board[13-spot-1] = 0;
 	}
 
 	/**
@@ -117,10 +140,10 @@ public class Mechanics {
 			if(x ==6){
 				first_row += " ";
 			}
-			first_row+=board[x] + " ";
+			first_row+=curState.board[x] + " ";
 		}
 		for(int x = 13; x > 6; x--){
-			second_row += board[x] + " ";
+			second_row += curState.board[x] + " ";
 			if(x==13){
 				second_row += " ";
 			}
@@ -134,7 +157,7 @@ public class Mechanics {
 	 * @return
 	 */
 	public int[] getBoardState() {
-		return board;
+		return curState.board;
 	}
 	
 	/**
@@ -142,14 +165,14 @@ public class Mechanics {
 	 * @return isPlayerOneTurn
 	 */
 	public boolean isPlayerOneTurn() {
-		return isPlayerOneTurn;
+		return curState.isPlayerOneTurn;
 	}
 
 	/**
 	 * This sets whether or not it is player one's turn
 	 */
 	public void setPlayerOneTurn(boolean isPlayerOneTurn) {
-		this.isPlayerOneTurn = isPlayerOneTurn;
+		curState.isPlayerOneTurn = isPlayerOneTurn;
 	}
 
 }
