@@ -32,7 +32,12 @@ public class GameModel {
 	}
 
 	/**
-	 * This will get the pit 
+	 * This will get the pit
+	 * Player one are the bottom pits
+	 * Player two are the top pits
+	 * The pits are labeled 0 - 13 starting from the left pit and ending to the left mancala
+	 * 13 12 11 10 9 8 7
+	 * 0 1 2 3 4 5 6
 	 * @param mouseXpos
 	 * @param mouseYpos
 	 */
@@ -42,7 +47,7 @@ public class GameModel {
 		if (isPlayerOneTurn == true) {
 			for (int counter = 0; counter < 6; counter++) {
 				if (playerOne.get(counter).contains(mouseClickLocation)) {
-					if(rules.getBoardState()[counter] == 0)
+					if (rules.getBoardState()[counter] == 0)
 						return;
 					System.out.println("Index: " + counter);
 					goAgain = rules.move(counter);
@@ -50,16 +55,18 @@ public class GameModel {
 						isPlayerOneTurn = false;
 						rules.toString();
 						System.out.println("It is now Player Two's turn");
+						mancala.stateChanged(new ChangeEvent(this));
 						break;
+					} else {
+						System.out.println("Player One can go again");
+						mancala.stateChanged(new ChangeEvent(this));
 					}
-					System.out.println("Player One can go again");
 				}
-				mancala.stateChanged(new ChangeEvent(this));
 			}
 		} else {
 			for (int counter = 0, index = 12; counter < 6; counter++, index--) {
 				if (playerTwo.get(counter).contains(mouseClickLocation)) {
-					if(rules.getBoardState()[index] == 0)
+					if (rules.getBoardState()[index] == 0)
 						return;
 					System.out.println("Index: " + index);
 					goAgain = rules.move(index);
@@ -67,13 +74,15 @@ public class GameModel {
 						isPlayerOneTurn = true;
 						rules.toString();
 						System.out.println("It is now Player One's turn");
+						mancala.stateChanged(new ChangeEvent(this));
 						break;
+					} else {
+						System.out.println("Player Two can go again");
+						mancala.stateChanged(new ChangeEvent(this));
 					}
-					System.out.println("Player Two can go again");
 				}
 
 			}
-			mancala.stateChanged(new ChangeEvent(this));
 		}
 	}
 
