@@ -26,6 +26,7 @@ public class Mechanics {
 			}
 		}
 		
+		//deep copy a state
 		public State(State other)
 		{
 			//copy the board
@@ -41,7 +42,7 @@ public class Mechanics {
 	private int curUndos;
 	
 	public Mechanics(int marbles) {
-		curUndos = 0;
+		curUndos = MAX_UNDO;
 		oldStates = new LinkedList<State>();
 		curState = new State(marbles);
 	}
@@ -72,13 +73,21 @@ public class Mechanics {
 	 * 
 	 */
 	public boolean move(int location) {
+		int side = location / 7;
+		
 		//save to undo buffer
-		//if(oldStates.getLast() != null && oldStates.getLast().isPlayerOneTurn != curState.isPlayerOneTurn)
-		//oldStates.push(new State(curState));
+		//If new player made a move, clear the buffer. player 1's side is locations 0-6
+		if(oldStates.peekLast() != null && oldStates.peekLast().isPlayerOneTurn != (side == 0 ? true : false))
+		{
+			curUndos = 3;
+			oldStates.clear();
+		}
+		System.out.println(oldStates.toString());
+		oldStates.push(new State(curState));
+		System.out.println(oldStates.toString());
 		
 		
 		int hand = curState.board[location];
-		int side = location / 7;
 		curState.board[location] = 0;
 		int pivot = location;
 		pivot++;
@@ -112,7 +121,11 @@ public class Mechanics {
 	 * This undos the previous move 
 	 */
 	public void undo() {
-		//curState.board = old_state.pop();
+		if(curUndos > 0 && oldStates.size() > 0)
+		{
+			curState = oldStates.removeLast();
+			curUndos--;
+		}
 	}
 
 	/**
