@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
  * @author Vivian Hoang
  *
  */
-public class BasicBoard implements Board {
+public class BlackBoard implements Board {
 
 	private static ImageIcon basicBoard;
 	private ImageIcon pit;
@@ -28,11 +28,11 @@ public class BasicBoard implements Board {
 	 * This intializes the board
 	 * @param rules
 	 */
-	public BasicBoard(Mechanics rules) {
+	public BlackBoard(Mechanics rules) {
 		data = rules;
-		basicBoard = new ImageIcon("data/BasicBoard.jpg");
-		pit = new ImageIcon("data/BasicPit.jpg");
-		mancala = new ImageIcon("data/BasicMancala.jpg");
+		basicBoard = new ImageIcon("data/BlackBoard.jpg");
+		pit = new ImageIcon("data/MarblePit.jpg");
+		mancala = new ImageIcon("data/MarbleMancala.jpg");
 		playerOne = new ArrayList<Rectangle>(6);
 		playerTwo = new ArrayList<Rectangle>(6);
 		for (int x = 0; x < 6; x++) {
