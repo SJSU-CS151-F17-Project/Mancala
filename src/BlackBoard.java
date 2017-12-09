@@ -22,7 +22,7 @@ public class BlackBoard implements Board{
 	private ArrayList<Rectangle> playerTwo;
 
 	/**
-	 * This intializes the board
+	 * This initializes the board
 	 * @param rules
 	 */ BlackBoard(Mechanics rules) {
 		data = rules;
@@ -50,23 +50,24 @@ public class BlackBoard implements Board{
 		AffineTransform tx = new AffineTransform();
 		AffineTransform x = new AffineTransform();
 		AffineTransform o = new AffineTransform();
-		g.drawImage(blackBoard.getImage(), null, null);
+		g.drawImage(blackBoard.getImage(), null, null); //This is the background
 		tx.translate(0, 50);
 
 		for (int i = 0; i < 6; i++) {
 			tx.translate(150, 0);
-			g.drawImage(pit.getImage(), tx, null);
+			g.drawImage(pit.getImage(), tx, null); //Each individual pit for the top
 		}
 		x.translate(0, 200);
 		for (int i = 0; i < 6; i++) {
 			x.translate(150, 0);
-			g.drawImage(pit.getImage(), x, null);
+			g.drawImage(pit.getImage(), x, null); //Each individual pit for the bottom
 		}
 		
-		g.drawImage(mancala.getImage(), o, null);
+		g.drawImage(mancala.getImage(), o, null); //Left mancala
 		o.translate(1070, 0);
-		g.drawImage(mancala.getImage(), o, null);
+		g.drawImage(mancala.getImage(), o, null); //Right mancala
 
+		//This draws the marbles in the bottom row of the pits
 		for (int counter = 0; counter < 6; counter++) {
 			for (int count = 0; count < boardValues[counter]; count++) {
 				int rectX = (int) playerOne.get(counter).getX();
@@ -80,6 +81,7 @@ public class BlackBoard implements Board{
 				g.fill(marble);
 			}
 		}
+		//This draws the marbles in the top row of the pits
 		for (int counter = 0,index = 12; counter < 6; counter++,index--) {
 			for (int count = 0; count < boardValues[index]; count++) {
 				int rectX = (int) playerTwo.get(counter).getX();
@@ -93,6 +95,7 @@ public class BlackBoard implements Board{
 				g.fill(marble);
 			}
 		}
+		//This draws the marbles in the right mancala
 		for (int count = 0; count < boardValues[6]; count++) {
 			int rectX = 1070;
 			int rectY = 0;
@@ -104,6 +107,7 @@ public class BlackBoard implements Board{
 			g.setColor(Color.BLACK);
 			g.fill(marble);
 		}
+		//This draws the marbles in the left mancala
 		for (int count = 0; count < boardValues[13]; count++) {
 			int rectX = 0;
 			int rectY = 0;

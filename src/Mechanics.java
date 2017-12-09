@@ -33,7 +33,7 @@ public class Mechanics {
 		int total = 0;
 		int otherTotal = 0;
 		for(int x = 0; x < 6; x++) {
-			total +=board[x];
+			total += board[x];
 		}
 		for(int y = 7; y <13;y++) {
 			otherTotal += board[y];
@@ -70,14 +70,14 @@ public class Mechanics {
 			check = pivot/7;
 			board[pivot++] += 1;
 		}
-		System.out.println(this.toString());
+/*		System.out.println(this.toString());*/
 		if ((check == side && last == 6) || (check == side && last == 13))
 			return true;
 		else if ((board[last] == 1) && ((pivot / 7) == side)) {
 			if(board[last] != board[last] + board[13-last-1])
 				steal(last, side);
-			System.out.println("Steal: ");
-			System.out.println(this.toString());
+/*			System.out.println("Steal: ");
+			System.out.println(this.toString());*/
 			return false;
 		}
 		return false;

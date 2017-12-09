@@ -23,6 +23,9 @@ public class View implements ChangeListener{
 	private JButton changeStyle;
 	private Mechanics rules;
 	
+	/**
+	 * Initializes the view
+	 */
 	public View() {
 		rules = new Mechanics(4);
 		BoardIcon board = new BoardIcon(new BasicBoard(rules),1200,500); //This is the board implements the Strategy		
@@ -57,9 +60,8 @@ public class View implements ChangeListener{
 	public void stateChanged(ChangeEvent arg0) {
 		label.repaint();
 		if (rules.gameOver() == true) {
-			JFrame pop = new JFrame();
-			JOptionPane gameDone = new JOptionPane();
-			gameDone.showMessageDialog(pop, "Game over!");
+			JOptionPane.showMessageDialog(new JFrame(), "Game over!\n" + "Player One's score: " + rules.getBoardState()[6]
+					+ "\n Player Two's score: " + rules.getBoardState()[13]);
 		}
 
 	}
