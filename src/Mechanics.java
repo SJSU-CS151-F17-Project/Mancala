@@ -61,6 +61,16 @@ public class Mechanics {
 			otherTotal += curState.board[y];
 		}
 		if(total == 0 || otherTotal == 0) {
+			//capture pieces and place them into mancala
+			curState.board[6] += total;
+			curState.board[13] += otherTotal;
+			for(int i = 0; i < 14; i++) //clear the pits
+			{
+				if((i+1) % 7 != 0)
+				{
+					curState.board[i] = 0;
+				}
+			}
 			return true;
 		}
 		return false;
