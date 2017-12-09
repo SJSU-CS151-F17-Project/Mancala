@@ -15,11 +15,10 @@ public class GameModel {
 	private Mechanics rules;
 	private ArrayList<Rectangle> playerOne;
 	private ArrayList<Rectangle> playerTwo;
-	private boolean isPlayerOneTurn;
 	public GameModel(View v) {
 		mancala = v;
 		rules = v.getMechanics();
-		isPlayerOneTurn = true;
+		rules.setPlayerOneTurn(true);
 		playerOne = new ArrayList<Rectangle>(6);
 		playerTwo = new ArrayList<Rectangle>(6);
 		for (int x = 0; x < 6; x++) {
@@ -44,7 +43,7 @@ public class GameModel {
 	public void getPit(int mouseXpos, int mouseYpos) {
 		boolean goAgain = false;
 		Point mouseClickLocation = new Point(mouseXpos, mouseYpos);
-		if (isPlayerOneTurn == true) {
+		if (rules.isPlayerOneTurn()) {
 			for (int counter = 0; counter < 6; counter++) {
 				if (playerOne.get(counter).contains(mouseClickLocation)) {
 					if (rules.getBoardState()[counter] == 0)
@@ -52,7 +51,7 @@ public class GameModel {
 					System.out.println("Index: " + counter);
 					goAgain = rules.move(counter);
 					if (goAgain == false) {
-						isPlayerOneTurn = false;
+						rules.setPlayerOneTurn(false);
 						rules.toString();
 						System.out.println("It is now Player Two's turn");
 						mancala.stateChanged(new ChangeEvent(this));
@@ -71,7 +70,7 @@ public class GameModel {
 					System.out.println("Index: " + index);
 					goAgain = rules.move(index);
 					if (goAgain == false) {
-						isPlayerOneTurn = true;
+						rules.setPlayerOneTurn(true);
 						rules.toString();
 						System.out.println("It is now Player One's turn");
 						mancala.stateChanged(new ChangeEvent(this));

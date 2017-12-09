@@ -11,6 +11,7 @@ public class Mechanics {
 	private int[] board;
 	private LinkedList<int[]> old_state;
 	private int undo;
+	private boolean isPlayerOneTurn;
 
 	public Mechanics(int marbles) {
 		undo = 3;
@@ -134,6 +135,21 @@ public class Mechanics {
 	 */
 	public int[] getBoardState() {
 		return board;
+	}
+	
+	/**
+	 * This returns whether or not it is player one's turn
+	 * @return isPlayerOneTurn
+	 */
+	public boolean isPlayerOneTurn() {
+		return isPlayerOneTurn;
+	}
+
+	/**
+	 * This sets whether or not it is player one's turn
+	 */
+	public void setPlayerOneTurn(boolean isPlayerOneTurn) {
+		this.isPlayerOneTurn = isPlayerOneTurn;
 	}
 
 }
