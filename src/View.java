@@ -1,12 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.*;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -27,8 +29,17 @@ public class View implements ChangeListener{
 	 * Initializes the view
 	 */
 	public View() {
-		rules = new Mechanics(4);
-		BoardIcon board = new BoardIcon(new BasicBoard(rules),1200,500); //This is the board implements the Strategy		
+		createGameFrame(4);
+	}
+	
+	public View(int n) {
+		createGameFrame(n);
+	}
+	
+	private void createGameFrame(int marbles)
+	{
+		rules = new Mechanics(marbles);
+		BoardIcon board = new BoardIcon(new BasicBoard(rules),1200,500); //This is the board implements the Strategy
 		
 		frame = new JFrame("Mancala");
 		Dimension window = new Dimension(1200,500);
