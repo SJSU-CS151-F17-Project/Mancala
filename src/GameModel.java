@@ -86,14 +86,6 @@ public class GameModel {
 	}
 
 	/**
-	 * This should allow the baord to change the style
-	 */
-	public void changeStyle() {
-		mancala.stateChanged(new ChangeEvent(this));
-	}
-
-
-	/**
 	 *  This should let the board undo a move
 	 */
 	public void undoMove() {

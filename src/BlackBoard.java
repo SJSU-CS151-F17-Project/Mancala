@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+
 /**
+ * This will have the basic board The Board has 1200 x 500 pixels The Pit is 130
+ * x 130 pixels The Mancala is 130 x 350 pixels
  * 
  * @author Vivian Hoang
  *
  */
-public class BlackBoard implements Board{
-	
-	private static ImageIcon blackBoard;
+public class BasicBoard implements Board {
+
+	private static ImageIcon basicBoard;
 	private ImageIcon pit;
 	private ImageIcon mancala;
 	private Mechanics data;
@@ -22,13 +25,14 @@ public class BlackBoard implements Board{
 	private ArrayList<Rectangle> playerTwo;
 
 	/**
-	 * This initializes the board
+	 * This intializes the board
 	 * @param rules
-	 */ BlackBoard(Mechanics rules) {
+	 */
+	public BasicBoard(Mechanics rules) {
 		data = rules;
-		blackBoard = new ImageIcon("data/BlackBoard.jpg");
-		pit = new ImageIcon("data/MarblePit.jpg");
-		mancala = new ImageIcon("data/MarbleMancala.jpg");
+		basicBoard = new ImageIcon("data/BasicBoard.jpg");
+		pit = new ImageIcon("data/BasicPit.jpg");
+		mancala = new ImageIcon("data/BasicMancala.jpg");
 		playerOne = new ArrayList<Rectangle>(6);
 		playerTwo = new ArrayList<Rectangle>(6);
 		for (int x = 0; x < 6; x++) {
@@ -39,6 +43,13 @@ public class BlackBoard implements Board{
 		}
 
 	}
+	
+	/**
+	 * sets mechanics
+	 */
+	 public void setMechanics(Mechanics m){
+		 data=m;
+	 }
 
 	/**
 	 * This should allow to draw a the board including the marbles
@@ -50,24 +61,23 @@ public class BlackBoard implements Board{
 		AffineTransform tx = new AffineTransform();
 		AffineTransform x = new AffineTransform();
 		AffineTransform o = new AffineTransform();
-		g.drawImage(blackBoard.getImage(), null, null); //This is the background
+		g.drawImage(basicBoard.getImage(), null, null);
 		tx.translate(0, 50);
 
 		for (int i = 0; i < 6; i++) {
 			tx.translate(150, 0);
-			g.drawImage(pit.getImage(), tx, null); //Each individual pit for the top
+			g.drawImage(pit.getImage(), tx, null);
 		}
 		x.translate(0, 200);
 		for (int i = 0; i < 6; i++) {
 			x.translate(150, 0);
-			g.drawImage(pit.getImage(), x, null); //Each individual pit for the bottom
+			g.drawImage(pit.getImage(), x, null);
 		}
-		
-		g.drawImage(mancala.getImage(), o, null); //Left mancala
-		o.translate(1070, 0);
-		g.drawImage(mancala.getImage(), o, null); //Right mancala
 
-		//This draws the marbles in the bottom row of the pits
+		g.drawImage(mancala.getImage(), o, null);
+		o.translate(1070, 0);
+		g.drawImage(mancala.getImage(), o, null);
+
 		for (int counter = 0; counter < 6; counter++) {
 			for (int count = 0; count < boardValues[counter]; count++) {
 				int rectX = (int) playerOne.get(counter).getX();
@@ -81,7 +91,6 @@ public class BlackBoard implements Board{
 				g.fill(marble);
 			}
 		}
-		//This draws the marbles in the top row of the pits
 		for (int counter = 0,index = 12; counter < 6; counter++,index--) {
 			for (int count = 0; count < boardValues[index]; count++) {
 				int rectX = (int) playerTwo.get(counter).getX();
@@ -95,7 +104,6 @@ public class BlackBoard implements Board{
 				g.fill(marble);
 			}
 		}
-		//This draws the marbles in the right mancala
 		for (int count = 0; count < boardValues[6]; count++) {
 			int rectX = 1070;
 			int rectY = 0;
@@ -107,7 +115,6 @@ public class BlackBoard implements Board{
 			g.setColor(Color.BLACK);
 			g.fill(marble);
 		}
-		//This draws the marbles in the left mancala
 		for (int count = 0; count < boardValues[13]; count++) {
 			int rectX = 0;
 			int rectY = 0;
@@ -122,5 +129,5 @@ public class BlackBoard implements Board{
 		
 
 	}
-}
 
+}

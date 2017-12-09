@@ -24,36 +24,30 @@ public class View implements ChangeListener{
 	private JLabel label;
 	private JButton changeStyle;
 	private Mechanics rules;
+	private Board style;
 	
 	/**
 	 * Initializes the view
 	 */
-	public View() {
-		createGameFrame(4);
-	}
-	
-	public View(int n) {
+	public View(int n, Board b) {
+		style = b;
 		createGameFrame(n);
 	}
 	
 	private void createGameFrame(int marbles)
 	{
 		rules = new Mechanics(marbles);
-		BoardIcon board = new BoardIcon(new BasicBoard(rules),1200,500); //This is the board implements the Strategy
+		style.setMechanics(rules);
+		BoardIcon board = new BoardIcon(style,1200,500); //This is the board implements the Strategy
 		
 		frame = new JFrame("Mancala");
 		Dimension window = new Dimension(1200,500);
 		frame.setSize(window);
 		label = new JLabel(board);
 		undo = new JButton("Undo");
-		changeStyle = new JButton("Change Style");
 		
 		JPanel buttonPlace = new JPanel();
-		
-		buttonPlace.setLayout(new GridLayout(0,2));
 		buttonPlace.add(undo);
-		buttonPlace.add(changeStyle);
-		
 		
 		frame.add(buttonPlace,BorderLayout.SOUTH);
 		frame.add(label);
@@ -100,14 +94,6 @@ public class View implements ChangeListener{
 	 */
 	public JLabel getBoard() {
 		return label;
-	}
-	
-	/**
-	 * This will change the style of the board
-	 * @return
-	 */
-	public JButton getChangeStyle() {
-		return changeStyle;
 	}
 	
 	/**

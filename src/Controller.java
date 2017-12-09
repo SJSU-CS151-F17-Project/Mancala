@@ -35,11 +35,5 @@ public class Controller {
 				game.getPit(e.getX(),e.getY());
 			}			
 		});
-		
-		v.getChangeStyle().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				game.changeStyle();
-			}
-		});
 	}
 }

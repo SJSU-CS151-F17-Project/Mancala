@@ -43,6 +43,13 @@ public class BasicBoard implements Board {
 		}
 
 	}
+	
+	/**
+	 * sets mechanics
+	 */
+	 public void setMechanics(Mechanics m){
+		 data=m;
+	 }
 
 	/**
 	 * This should allow to draw a the board including the marbles

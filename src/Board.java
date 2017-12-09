@@ -11,4 +11,6 @@ public interface Board{
 	 * @param g
 	 */
 	void draw(Graphics2D g);
+	void setMechanics(Mechanics m);
 }
+
