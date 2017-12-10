@@ -1,7 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,14 +11,12 @@ public class StartScreen {
 	
 	private int marbles;
 	private Board style;
-
-	public StartScreen(){
-		
-	}
 	
+	/**
+	 * Prompts the user for the number of marbles per slot and which style to use at the beginning of the game
+	 */
 	public void start(){
-
-		//Style select
+		//Style select-----
 		JFrame styleFrame = new JFrame();
 		styleFrame.setLayout(new BorderLayout());
 

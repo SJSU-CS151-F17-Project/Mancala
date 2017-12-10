@@ -92,9 +92,9 @@ public class Mechanics {
 			curUndos = 3;
 			oldStates.clear();
 		}
-		System.out.println(oldStates.toString());
+		//System.out.println(oldStates.toString());
 		oldStates.push(new State(curState));
-		System.out.println(oldStates.toString());
+		//System.out.println(oldStates.toString());
 		
 		
 		int hand = curState.board[location];
@@ -114,7 +114,7 @@ public class Mechanics {
 			check = pivot/7;
 			curState.board[pivot++] += 1;
 		}
-/*		System.out.println(this.toString());*/
+		/*System.out.println(this.toString());*/
 		if ((check == side && last == 6) || (check == side && last == 13))
 			return true;
 		else if ((curState.board[last] == 1) && ((pivot / 7) == side)) {
@@ -154,11 +154,12 @@ public class Mechanics {
 	}
 
 	/**
-	 * Converts into string to see for the test
+	 * Converts into string
 	 */
 	public String toString() {
 		String first_row = "   ";
 		String second_row = "";
+		String playerTurn = "";
 		for(int x =0 ; x < 7; x++){
 			if(x ==6){
 				first_row += " ";
@@ -171,7 +172,13 @@ public class Mechanics {
 				second_row += " ";
 			}
 		}
-		String together = second_row + "\n" + first_row ;
+		if(isPlayerOneTurn()){
+			playerTurn = "It is Player 1's turn";
+		}
+		else{
+			playerTurn = "It is Player 2's turn";
+		}
+		String together = second_row + "\n" + first_row + "\n" + playerTurn;
 		return together;
 	}
 	
@@ -197,5 +204,4 @@ public class Mechanics {
 	public void setPlayerOneTurn(boolean isPlayerOneTurn) {
 		curState.isPlayerOneTurn = isPlayerOneTurn;
 	}
-
 }

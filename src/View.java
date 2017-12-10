@@ -1,14 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.*;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -20,9 +17,9 @@ import javax.swing.event.ChangeListener;
  */
 public class View implements ChangeListener{
 	private JButton undo;
+	private JTextArea moveList;
 	private JFrame frame;
 	private JLabel label;
-	private JButton changeStyle;
 	private Mechanics rules;
 	private Board style;
 	
@@ -42,14 +39,16 @@ public class View implements ChangeListener{
 		
 		frame = new JFrame("Mancala");
 		Dimension window = new Dimension(1200,500);
+		Dimension moves = new Dimension(50, 50);
 		frame.setSize(window);
 		label = new JLabel(board);
-		undo = new JButton("Undo");
-		
+		undo = new JButton("Undo");	
 		JPanel buttonPlace = new JPanel();
 		buttonPlace.add(undo);
-		
-		frame.add(buttonPlace,BorderLayout.SOUTH);
+		moveList = new JTextArea("");
+		frame.add(moveList, BorderLayout.SOUTH);
+		moveList.setPreferredSize(moves);
+		frame.add(buttonPlace,BorderLayout.NORTH);
 		frame.add(label);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
@@ -63,8 +62,10 @@ public class View implements ChangeListener{
 	 */
 	@Override
 	public void stateChanged(ChangeEvent arg0) {
+		moveList.setText(rules.toString());
 		label.repaint();
 		if (rules.gameOver() == true) {
+			moveList.setText(rules.toString());
 			JOptionPane.showMessageDialog(new JFrame(), "Game over!\n" + "Player One's score: " + rules.getBoardState()[6]
 					+ "\n Player Two's score: " + rules.getBoardState()[13]);
 		}
@@ -86,7 +87,6 @@ public class View implements ChangeListener{
 	public JFrame getMainWindow() {
 		return frame;
 	}
-	
 	
 	/**
 	 * This returns the entire label containing painted board including the marbles

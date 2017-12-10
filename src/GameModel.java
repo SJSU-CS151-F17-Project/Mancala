@@ -92,5 +92,4 @@ public class GameModel {
 		rules.undo();
 		mancala.stateChanged(new ChangeEvent(this));
 	}
-
 }
