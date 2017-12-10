@@ -25,6 +25,8 @@ public class View implements ChangeListener{
 	
 	/**
 	 * Initializes the view
+	 * @param n
+	 * @param b
 	 */
 	public View(int n, Board b) {
 		style = b;
