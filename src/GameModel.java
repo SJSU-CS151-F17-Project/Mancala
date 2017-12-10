@@ -7,7 +7,7 @@ import javax.swing.event.ChangeEvent;
 /**
  * This is the GameModel
  * 
- * @author Vivian Hoang
+ * @author CriticalException
  *
  */
 public class GameModel {
@@ -15,6 +15,11 @@ public class GameModel {
 	private Mechanics rules;
 	private ArrayList<Rectangle> playerOne;
 	private ArrayList<Rectangle> playerTwo;
+	
+	/**
+	 * Create the GameModel with a reference to view v
+	 * @param v
+	 */
 	public GameModel(View v) {
 		mancala = v;
 		rules = v.getMechanics();

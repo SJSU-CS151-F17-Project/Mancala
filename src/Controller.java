@@ -5,11 +5,16 @@ import java.awt.event.MouseEvent;
 
 /**
  * This calls for the GameModel that the data is to be changed
- * @author Vivian Hoang
+ * @author CriticalException
  *
  */
 public class Controller {
 	private GameModel game;
+	
+	/**
+	 * Initialize controller
+	 * @param game
+	 */
 	public Controller(GameModel game) {
 		this.game = game;
 	}

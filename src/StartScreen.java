@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 /**
  * Screen that prompts for game settings
- *
+ * @author CriticalException
  */
 public class StartScreen {
 	

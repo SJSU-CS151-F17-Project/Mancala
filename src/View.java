@@ -12,7 +12,7 @@ import javax.swing.event.ChangeListener;
 
 /**
  * This will allow the user to interact with the board
- * @author Vivian Hoang
+ * @author CriticalException
  *
  */
 public class View implements ChangeListener{
@@ -31,6 +31,10 @@ public class View implements ChangeListener{
 		createGameFrame(n);
 	}
 	
+	/**
+	 * Create game's frame with given number of marbles
+	 * @param marbles
+	 */
 	private void createGameFrame(int marbles)
 	{
 		rules = new Mechanics(marbles);

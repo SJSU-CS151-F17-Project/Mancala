@@ -41,6 +41,9 @@ public class Mechanics {
 	private LinkedList<State> oldStates;
 	private int curUndos;
 	
+	/**
+	 * Initialize game with given number of marbles
+	 */
 	public Mechanics(int marbles) {
 		curUndos = MAX_UNDO;
 		oldStates = new LinkedList<State>();

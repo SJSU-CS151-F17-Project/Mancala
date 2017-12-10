@@ -5,7 +5,7 @@ import javax.swing.Icon;
 
 /**
  * This is the context to allow the use of drawing different Boards
- * @author Vivian Hoang
+ * @author CriticalException
  *
  */
 public class BoardIcon implements Icon{
@@ -13,6 +13,13 @@ public class BoardIcon implements Icon{
 	private Board mancala;
 	private int width;
 	private int height;
+	
+	/**
+	 * Create board icon
+	 * @param mancala
+	 * @param width
+	 * @param height
+	 */
 	public BoardIcon(Board mancala, int width, int height) {
 		this.mancala = mancala;
 		this.width = width;
