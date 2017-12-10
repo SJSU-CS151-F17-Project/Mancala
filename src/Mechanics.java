@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 /**
- * 
+ * The game logic
  * @author CriticalException
  *
  */

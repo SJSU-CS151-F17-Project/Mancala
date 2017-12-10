@@ -1,8 +1,8 @@
 import java.awt.Graphics2D;
 
 /**
- * 
- * @author Vivian Hoang
+ * The interface for different styles of boards
+ * @author CriticalException
  *
  */
 public interface Board{
