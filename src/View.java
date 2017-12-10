@@ -88,7 +88,7 @@ public class View implements ChangeListener{
 	
 	/**
 	 * Passes the frame to the Controller
-	 * @return
+	 * @return the frame in view
 	 */
 	public JFrame getMainWindow() {
 		return frame;
@@ -96,7 +96,7 @@ public class View implements ChangeListener{
 	
 	/**
 	 * This returns the entire label containing painted board including the marbles
-	 * @return
+	 * @return the label that contains the painted board
 	 */
 	public JLabel getBoard() {
 		return label;

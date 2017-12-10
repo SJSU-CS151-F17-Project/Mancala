@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
 
 /**
- * This is the GameModel
+ * This is the GameModel that holds that fetches the data and gives the data
  * 
  * @author CriticalException
  *

@@ -45,7 +45,8 @@ public class BasicBoard implements Board {
 	}
 	
 	/**
-	 * sets mechanics
+	 * This gets the data
+	 * @param m sets the Mechanic data
 	 */
 	 public void setMechanics(Mechanics m){
 		 data=m;

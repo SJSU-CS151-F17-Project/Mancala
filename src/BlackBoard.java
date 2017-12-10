@@ -9,10 +9,13 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
- * This will have the basic board The Board has 1200 x 500 pixels The Pit is 130
- * x 130 pixels The Mancala is 130 x 350 pixels
+ * This will have the basic board 
+ * The Board has 1200 x 500 pixels 
+ * The Pit is 130
+ * x 130 pixels 
+ * The Mancala is 130 x 350 pixels
  * 
- * @author Vivian Hoang
+ * @author CriticalException
  *
  */
 public class BlackBoard implements Board {
@@ -25,7 +28,7 @@ public class BlackBoard implements Board {
 	private ArrayList<Rectangle> playerTwo;
 
 	/**
-	 * This intializes the board
+	 * This initializes the board
 	 * @param rules
 	 */
 	public BlackBoard(Mechanics rules) {
@@ -45,7 +48,8 @@ public class BlackBoard implements Board {
 	}
 	
 	/**
-	 * sets mechanics
+	 * This sets the mechanics
+	 * @param m the mechanics
 	 */
 	 public void setMechanics(Mechanics m){
 		 data=m;

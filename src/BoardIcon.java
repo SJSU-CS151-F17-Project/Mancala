@@ -15,7 +15,7 @@ public class BoardIcon implements Icon{
 	private int height;
 	
 	/**
-	 * Create board icon
+	 * Creates board icon that implements the Strategy pattern
 	 * @param mancala
 	 * @param width
 	 * @param height
@@ -25,17 +25,27 @@ public class BoardIcon implements Icon{
 		this.width = width;
 		this.height = height;
 	}
+	
+	/**
+	 * This returns the board's height
+	 */
 	@Override
 	public int getIconHeight() {
 		return height;
 	}
 
+	/**
+	 * This returns the board's width
+	 */
 	@Override
 	public int getIconWidth() {
 		// TODO Auto-generated method stub
 		return width;
 	}
 
+	/**
+	 * This paints the board when called to repaint
+	 */
 	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		// TODO Auto-generated method stub

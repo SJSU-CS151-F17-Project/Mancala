@@ -1,7 +1,8 @@
 import java.util.LinkedList;
 
 /**
- * The game logic
+ * The game logic for the entire system
+ * This contains the current state, undo, and the move function
  * @author CriticalException
  *
  */
@@ -43,6 +44,7 @@ public class Mechanics {
 	
 	/**
 	 * Initialize game with given number of marbles
+	 * @param marbles are the total amount of marbles per pit
 	 */
 	public Mechanics(int marbles) {
 		curUndos = MAX_UNDO;
